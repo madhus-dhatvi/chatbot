@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { dummyData } from './constants/dummyData';
+import { dummyData2 } from './constants/dummyData2';
 
 // Simple circular avatar component using initials
 const Avatar = ({ initials, size = 40 }) => (
@@ -41,6 +42,7 @@ const initialMessages = [
 //     'Returns & refunds & Replacements',
 // ];
 const menuOptions = dummyData.map((item) => item.category);
+const recentFaqs=dummyData2.map((item)=>item.category);
 export default function Chatbot() {
     const [messages, setMessages] = useState(initialMessages);
     const [input, setInput] = useState('');
@@ -187,7 +189,7 @@ export default function Chatbot() {
 
                     {item.content.map((i, index) => {
                         return (
-                            <View id={index} style={styles.quickRow}>
+                            <View key={index} style={styles.quickRow}>
                                 <TouchableOpacity style={styles.pill} onPress={() => {
                                     handleAnswers(index, item.parentId)
                                 }}>
@@ -202,24 +204,33 @@ export default function Chatbot() {
 
         if (item.bubbleType === 'hero') {
             return (
+                <View style={{display:"flex",flexDirection:"row",alignItems:"flex-end"}}>
+                    <Avatar initials={'AI'} />
+
                 <View style={styles.heroContainer}>
                     <Text style={styles.heroText}>{item.content}</Text>
-                    {menuOptions.map((item, index) => {
+                    {recentFaqs.map((item, index) => {
                         return (
-                            <View id={index} style={styles.quickRow}>
+                            <View key={index} style={styles.quickRow}>
                                 <TouchableOpacity style={styles.pill} onPress={() => {
                                     handleRecentFaqs(index)
                                 }}>
-                                    <Text style={styles.pillText}>🚚{item}</Text>
+                                    <Text style={styles.pillText}>{item}</Text>
                                 </TouchableOpacity>
                             </View>
                         );
                     })}
+                    <TouchableOpacity style={styles.pill} onPress={() => {
+                                    alert('Navigates to Agent')
+                                }}>
+                                    <Text style={styles.pillText}>{'💬 Talk to Agent'}</Text>
+                                </TouchableOpacity>
 
                     <TouchableOpacity style={styles.menuBtn} onPress={openMenu}>
                         <Text style={styles.menuBtnText}>☰ Menu</Text>
                     </TouchableOpacity>
                 </View>
+                    </View>
             );
         }
 
@@ -347,7 +358,7 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         flexWrap: "wrap",
 
-        marginRight: 30,
+        marginRight:65,
     },
     heroText: { fontSize: 16, color: '#111', marginBottom: 12 },
     quickRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
@@ -356,14 +367,14 @@ const styles = StyleSheet.create({
     pillText: { fontSize: 14, color: '#222' },
     pillCenter: { backgroundColor: '#fff', paddingVertical: 10, paddingHorizontal: 18, borderRadius: 20, minWidth: 220, alignItems: 'center' },
     pillTextCenter: { fontSize: 15, color: '#222' },
-    menuBtn: { backgroundColor: '#fff', padding: 12, borderRadius: 28, alignItems: 'center', marginTop: 6, alignSelf: 'center', width: 220 },
+    menuBtn: { backgroundColor: '#fff', padding: 12, borderWidth:1,borderRadius: 28, alignItems: 'center', marginVertical: 6, alignSelf: 'center', width: 220 },
     menuBtnText: { fontWeight: '700' },
 
     row: { flexDirection: 'row', alignItems: 'flex-end', marginVertical: 8 },
-    msgBubble: { maxWidth: '75%', padding: 12, borderRadius: 14 },
+    msgBubble: { maxWidth: '70%', padding: 12, borderRadius: 14 },
     botBubble: { backgroundColor: '#CFAFF6', marginLeft: 8, borderTopLeftRadius: 6 },
     userBubble: { backgroundColor: '#d9d9d9', marginRight: 8, borderTopRightRadius: 6 },
-    botText: { color: '#111' },
+    botText: { color: '#111'},
     userText: { color: '#111' },
 
     avatar: { backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#ddd' },

@@ -293,7 +293,7 @@ export default function Chatbot() {
                             style={styles.input}
                             onSubmitEditing={sendMessage}
                             returnKeyType="send"
-                            // editable={false}
+                            editable={false}
                             blurOnSubmit={false}
                         />
                     

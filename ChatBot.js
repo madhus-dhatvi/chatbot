@@ -19,6 +19,7 @@ import { dummyData } from './constants/dummyData';
 import { dummyData2 } from './constants/dummyData2';
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { dummyData3 } from './constants/dummyData3';
 
 // Simple circular avatar component using initials
 const Avatar = ({ initials, size = 40 }) => (
@@ -38,7 +39,7 @@ const initialMessages = [
 ];
 
 
-const menuOptions = dummyData.map((item) => item.category);
+const menuOptions = dummyData3.map((item) => item.category);
 const recentFaqs = dummyData2.map((item) => item.category);
 export default function Chatbot() {
     const [messages, setMessages] = useState(initialMessages);
@@ -91,7 +92,7 @@ export default function Chatbot() {
         closeMenu();
         // onQuickPress("", true);
         // console.log(index);
-        const obj = dummyData.filter((item, ind) => ind === index);
+        const obj = dummyData3.filter((item, ind) => ind === index);
         console.log(obj[0].category);
         const selectedOption = obj[0].category
         const userMsg = { id: String(Math.random()), type: 'user', content: selectedOption };
@@ -103,7 +104,7 @@ export default function Chatbot() {
     }
     function handleRecentFaqs(index) {
         // console.log(index);
-        const obj = dummyData.filter((item, ind) => ind === index);
+        const obj = dummyData3.filter((item, ind) => ind === index);
         const questions = obj[0].sub_queries.map((item) => item.question);
         const userSelection = obj[0].category;
         const userMsg = { id: String(Math.random()), type: 'user', content: userSelection };
@@ -113,8 +114,8 @@ export default function Chatbot() {
     function handleAnswers(index, parentId) {
         // console.log(index, parentId);
         // console.log(dummyData[parentId].sub_queries[index])
-        const answer = dummyData[parentId].sub_queries[index].answer;
-        const userSelectedOption = dummyData[parentId].sub_queries[index].question;
+        const answer = dummyData3[parentId].sub_queries[index].answer;
+        const userSelectedOption = dummyData3[parentId].sub_queries[index].question;
         // console.log(userSelectedOption);
         const userMsg = { id: String(Math.random()), type: 'user', content: userSelectedOption };
         setMessages((m) => [...m, userMsg]);

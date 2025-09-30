@@ -93,5 +93,77 @@ export const dummyData = [
         "answer": "Select 'Replacement' when raising a return request and a new product will be delivered once the old one is picked up."
       }
     ]
+  },
+  {
+    "id": 6,
+    "category": "Returns, Refunds ",
+    "sub_queries": [
+      {
+        "question": "Return a product",
+        "answer": "Go to 'My Orders', select the order, and choose 'Return'."
+      },
+      {
+        "question": "Refund status",
+        "answer": "Refunds are credited to your original payment method within 5–7 days."
+      },
+      {
+        "question": "Replacement request",
+        "answer": "Select 'Replacement' when raising a return request and a new product will be delivered once the old one is picked up."
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "category": "Returns, Refunds ",
+    "sub_queries": [
+      {
+        "question": "Return a product",
+        "answer": "Go to 'My Orders', select the order, and choose 'Return'."
+      },
+      {
+        "question": "Refund status",
+        "answer": "Refunds are credited to your original payment method within 5–7 days."
+      },
+      {
+        "question": "Replacement request",
+        "answer": "Select 'Replacement' when raising a return request and a new product will be delivered once the old one is picked up."
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "category": "Returns, Refunds ",
+    "sub_queries": [
+      {
+        "question": "Return a product",
+        "answer": "Go to 'My Orders', select the order, and choose 'Return'."
+      },
+      {
+        "question": "Refund status",
+        "answer": "Refunds are credited to your original payment method within 5–7 days."
+      },
+      {
+        "question": "Replacement request",
+        "answer": "Select 'Replacement' when raising a return request and a new product will be delivered once the old one is picked up."
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "category": "Returns, Refunds ",
+    "sub_queries": [
+      {
+        "question": "Return a product",
+        "answer": "Go to 'My Orders', select the order, and choose 'Return'."
+      },
+      {
+        "question": "Refund status",
+        "answer": "Refunds are credited to your original payment method within 5–7 days."
+      },
+      {
+        "question": "Replacement request",
+        "answer": "Select 'Replacement' when raising a return request and a new product will be delivered once the old one is picked up."
+      }
+    ]
   }
 ]

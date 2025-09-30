@@ -12,10 +12,13 @@ import {
     Dimensions,
     TouchableWithoutFeedback,
     Keyboard,
+    StatusBar,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { dummyData } from './constants/dummyData';
 import { dummyData2 } from './constants/dummyData2';
+import Feather from '@expo/vector-icons/Feather';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 // Simple circular avatar component using initials
 const Avatar = ({ initials, size = 40 }) => (
@@ -34,15 +37,9 @@ const initialMessages = [
     },
 ];
 
-// const menuOptions = [
-//     'Product search and availability',
-//     'Order tracking and delivery',
-//     'Offers, discounts & Payments',
-//     'Account and Support',
-//     'Returns & refunds & Replacements',
-// ];
+
 const menuOptions = dummyData.map((item) => item.category);
-const recentFaqs=dummyData2.map((item)=>item.category);
+const recentFaqs = dummyData2.map((item) => item.category);
 export default function Chatbot() {
     const [messages, setMessages] = useState(initialMessages);
     const [input, setInput] = useState('');
@@ -155,7 +152,7 @@ export default function Chatbot() {
     }
 
 
-    const sendMessage = () => {
+    const  sendMessage = () => {
         if (!input.trim()) return;
         const userMsg = { id: String(Math.random()), type: 'user', content: input };
         setMessages((m) => [...m, userMsg]);
@@ -196,41 +193,47 @@ export default function Chatbot() {
                                     <Text style={styles.pillText}>{i}</Text>
                                 </TouchableOpacity>
                             </View>
+
                         );
                     })}
+                     <TouchableOpacity style={styles.pill} onPress={openMenu}>
+                            <Text style={styles.pillText}>👈🏻 Return to MENU</Text>
+                        </TouchableOpacity>
                 </View>
             </View>);
         }
 
         if (item.bubbleType === 'hero') {
             return (
-                <View style={{display:"flex",flexDirection:"row",alignItems:"flex-end"}}>
+                <View style={{ display: "flex", flexDirection: "row", alignItems: "flex-end" }}>
                     <Avatar initials={'AI'} />
 
-                <View style={styles.heroContainer}>
-                    <Text style={styles.heroText}>{item.content}</Text>
-                    {recentFaqs.map((item, index) => {
-                        return (
-                            <View key={index} style={styles.quickRow}>
-                                <TouchableOpacity style={styles.pill} onPress={() => {
-                                    handleRecentFaqs(index)
-                                }}>
-                                    <Text style={styles.pillText}>{item}</Text>
-                                </TouchableOpacity>
-                            </View>
-                        );
-                    })}
-                    <TouchableOpacity style={styles.pill} onPress={() => {
-                                    alert('Navigates to Agent')
-                                }}>
-                                    <Text style={styles.pillText}>{'💬 Talk to Agent'}</Text>
-                                </TouchableOpacity>
+                    <View style={styles.heroContainer}>
+                        <Text style={styles.heroText}>{item.content}</Text>
+                        {recentFaqs.map((item, index) => {
+                            return (
+                                <View key={index} style={styles.quickRow}>
+                                    <TouchableOpacity style={styles.pill} onPress={() => {
+                                        handleRecentFaqs(index)
+                                    }}>
+                                        <Text style={styles.pillText}>{item}</Text>
+                                        <Ionicons name="arrow-forward-circle-sharp" size={24} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            );
+                        })}
+                        <TouchableOpacity style={styles.pill} onPress={() => {
+                            alert('Navigates to Agent')
+                        }}>
+                            <Text style={styles.pillText}>{'💬 Talk to Agent'}</Text>
+                            <Ionicons name="arrow-forward-circle-sharp" size={24} color="black" />
+                        </TouchableOpacity>
 
-                    <TouchableOpacity style={styles.menuBtn} onPress={openMenu}>
-                        <Text style={styles.menuBtnText}>☰ Menu</Text>
-                    </TouchableOpacity>
-                </View>
+                        <TouchableOpacity style={styles.menuBtn} onPress={openMenu}>
+                            <Text style={styles.menuBtnText}>☰ MENU</Text>
+                        </TouchableOpacity>
                     </View>
+                </View>
             );
         }
 
@@ -250,16 +253,15 @@ export default function Chatbot() {
     const sheetStyle = { transform: [{ translateY: sheetAnim }] };
 
     return (
-        <SafeAreaView style={styles.container}>
+        
             <KeyboardAvoidingView
-                style={{ flex: 1 }}
-
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
-            >
+      behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
+      style={styles.container}
+      keyboardVerticalOffset={Platform.OS==='ios'?80:0}>
+                
                 <View style={styles.header}>
-                    <TouchableOpacity>
-                        <Text style={styles.back}>{'‹'}</Text>
+                    <TouchableOpacity >
+                        <Ionicons name="arrow-back" size={24} color="black" />
                     </TouchableOpacity>
                     <View>
                         <Text style={styles.headerTitle}>AI Assistant</Text>
@@ -273,7 +275,7 @@ export default function Chatbot() {
                     data={messages}
                     keyExtractor={(item) => item.id}
                     renderItem={renderMessage}
-                    contentContainerStyle={{ padding: 16, paddingBottom: 20 }}
+                    contentContainerStyle={{ padding: 16, paddingBottom: 20 ,marginLeft:-10}}
                     // avoids extra space when there are few items
                     ListFooterComponent={<View style={{ height: 6 }} />}
                 />
@@ -282,7 +284,7 @@ export default function Chatbot() {
                     <TouchableOpacity style={{ marginRight: 8 }} onPress={() => { }}>
                         <Avatar initials={'MJ'} size={36} />
                     </TouchableOpacity>
-                    <View style={{ flex: 1 }}>
+                    
 
                         <TextInput
                             placeholder="Type the message..."
@@ -294,15 +296,14 @@ export default function Chatbot() {
                             // editable={false}
                             blurOnSubmit={false}
                         />
-                    </View>
+                    
 
 
                     <TouchableOpacity style={styles.sendBtn} onPress={sendMessage}>
-                        <Text style={{ fontSize: 18 }}>➤</Text>
+                        <Feather name="send" size={24} color="black" />
                     </TouchableOpacity>
                 </View>
-            </KeyboardAvoidingView>
-
+                
             {/* Bottom sheet implemented as an absolutely positioned overlay (no RN <Modal/>). */}
             {isSheetMounted && (
                 <View style={styles.overlayContainer} pointerEvents="box-none">
@@ -335,14 +336,16 @@ export default function Chatbot() {
                 </View >
             )
             }
-        </SafeAreaView >
+        
+            </KeyboardAvoidingView>
+
     );
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#ffffff', marginTop: 40 },
+    container: { flex: 1, backgroundColor: '#ffffff',marginVertical:30},
     header: { height: 64, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 12, borderBottomWidth: 1, borderBottomColor: '#eee' },
-    back: { fontSize: 26, color: '#111' },
+
     headerTitle: { fontSize: 18, fontWeight: '700', textAlign: 'center' },
     onlineText: { fontSize: 12, color: '#1db954', textAlign: 'center' },
 
@@ -358,29 +361,30 @@ const styles = StyleSheet.create({
         alignItems: "flex-start",
         flexWrap: "wrap",
 
-        marginRight:65,
+        marginRight: 65,
     },
     heroText: { fontSize: 16, color: '#111', marginBottom: 12 },
     quickRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 },
     quickRowCenter: { alignItems: 'center', marginBottom: 10 },
-    pill: { backgroundColor: '#fff', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 18, minWidth: 150, alignItems: 'center', elevation: 2 },
+    pill: { backgroundColor: '#fff', paddingVertical: 8, paddingHorizontal: 12, borderRadius: 18, minWidth: 150, alignItems: 'center',flexDirection:'row', elevation: 2 },
     pillText: { fontSize: 14, color: '#222' },
     pillCenter: { backgroundColor: '#fff', paddingVertical: 10, paddingHorizontal: 18, borderRadius: 20, minWidth: 220, alignItems: 'center' },
     pillTextCenter: { fontSize: 15, color: '#222' },
-    menuBtn: { backgroundColor: '#fff', padding: 12, borderWidth:1,borderRadius: 28, alignItems: 'center', marginVertical: 6, alignSelf: 'center', width: 220 },
+    menuBtn: { backgroundColor: '#fff', padding: 12, borderWidth: 1, borderRadius: 28, alignItems: 'center', marginVertical: 6, alignSelf: 'center', width: 220 },
     menuBtnText: { fontWeight: '700' },
+    
 
     row: { flexDirection: 'row', alignItems: 'flex-end', marginVertical: 8 },
     msgBubble: { maxWidth: '70%', padding: 12, borderRadius: 14 },
-    botBubble: { backgroundColor: '#CFAFF6', marginLeft: 8, borderTopLeftRadius: 6 },
-    userBubble: { backgroundColor: '#d9d9d9', marginRight: 8, borderTopRightRadius: 6 },
-    botText: { color: '#111'},
+    botBubble: { backgroundColor: '#CFAFF6', marginLeft: 2, borderTopLeftRadius: 6 },
+    userBubble: { backgroundColor: '#d9d9d9', marginRight: 2, borderTopRightRadius: 6 },
+    botText: { color: '#111' },
     userText: { color: '#111' },
 
-    avatar: { backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#ddd' },
+    avatar: { backgroundColor: '#fff', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderColor: '#ddd' ,marginRight:2},
     avatarText: { fontWeight: '700' },
 
-    inputRow: { flexDirection: 'row', alignItems: 'center', padding: 12, borderTopWidth: 1, borderTopColor: '#eee' },
+    inputRow: { flexDirection: 'row', alignItems: 'center', paddingTop: 12,paddingHorizontal:12,marginBottom:7, borderTopWidth: 1, borderTopColor: '#eee' },
     input: { flex: 1, backgroundColor: '#fff', paddingVertical: 12, paddingHorizontal: 16, borderRadius: 30, borderWidth: 1, borderColor: '#eee' },
     sendBtn: { marginLeft: 8, backgroundColor: '#fff', borderRadius: 24, padding: 10, borderWidth: 1, borderColor: '#eee' },
 

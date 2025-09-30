@@ -258,7 +258,7 @@ export default function Chatbot() {
       behavior={Platform.OS === 'ios' ? 'padding' : 'padding'}
       style={styles.container}
       keyboardVerticalOffset={Platform.OS==='ios'?80:0}>
-                
+                <StatusBar barStyle="default"/>
                 <View style={styles.header}>
                     <TouchableOpacity >
                         <Ionicons name="arrow-back" size={24} color="black" />
@@ -291,7 +291,7 @@ export default function Chatbot() {
                             value={input}
                             onChangeText={setInput}
                             style={styles.input}
-                            onSubmitEditing={sendMessage}
+                            onSubmitEditing={sendMessage} 
                             returnKeyType="send"
                             editable={false}
                             blurOnSubmit={false}
@@ -343,7 +343,7 @@ export default function Chatbot() {
 }
 
 const styles = StyleSheet.create({
-    container: { flex: 1, backgroundColor: '#ffffff',marginVertical:30},
+    container: { flex: 1, backgroundColor: '#ffffff'},
     header: { height: 64, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 12, borderBottomWidth: 1, borderBottomColor: '#eee' },
 
     headerTitle: { fontSize: 18, fontWeight: '700', textAlign: 'center' },
